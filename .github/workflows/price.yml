@@ -1,0 +1,32 @@
+name: Update BTG Live Price
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"   # كل دقيقة
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install node-fetch
+
+      - name: Run update script
+        run: node Price/update_price.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "btg-bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          git add Price/live.svg
+          git commit -m "update live.svg"
+          git push
