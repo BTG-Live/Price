@@ -37,7 +37,7 @@ async function main() {
     const formatted = p >= 1 ? p.toFixed(3) : p.toFixed(6);
 
     const svg = svgTemplate(formatted, pct, up);
-    fs.writeFileSync("./live.svg", svg);
+    fs.writeFileSync("./Price/live.svg", svg);
     console.log("✅ live.svg updated:", formatted, pct + "%");
   } catch (e) {
     console.error("❌ Error updating price:", e);
